@@ -42,8 +42,10 @@ string getInfo(string, int , bool, bool);
 int main() {
     // Declare Variables
     Customers bank;
-    
-    bank.cliAmt = 5;
+    int cusAmt;
+    cout << "How many Bank Clients?";
+    cin >> cusAmt;
+    bank.cliAmt = cusAmt;
     bank.roster = new Customer[bank.cliAmt];
     bank.roster[0] = setInfo(bank.roster[0]);
     

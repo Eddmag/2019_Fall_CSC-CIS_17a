@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=Cygwin-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/Cygwin-Windows
-CND_ARTIFACT_NAME_Debug=midtermprob1
-CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/midtermprob1
+CND_ARTIFACT_NAME_Debug=midtermmenu
+CND_ARTIFACT_PATH_Debug=dist/Debug/Cygwin-Windows/midtermmenu
 CND_PACKAGE_DIR_Debug=dist/Debug/Cygwin-Windows/package
-CND_PACKAGE_NAME_Debug=midtermprob1.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/midtermprob1.tar
+CND_PACKAGE_NAME_Debug=midtermmenu.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin-Windows/package/midtermmenu.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
-CND_ARTIFACT_NAME_Release=midtermprob1
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/midtermprob1
+CND_ARTIFACT_NAME_Release=midtermmenu
+CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/midtermmenu
 CND_PACKAGE_DIR_Release=dist/Release/Cygwin-Windows/package
-CND_PACKAGE_NAME_Release=midtermprob1.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/midtermprob1.tar
+CND_PACKAGE_NAME_Release=midtermmenu.tar
+CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/midtermmenu.tar
 #
 # include compiler specific variables
 #

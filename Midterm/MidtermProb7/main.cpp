@@ -29,65 +29,71 @@ void prntPrm(Primes *);  // Output all prime factors
 int main() {
     // Declare Variables
     Primes *prime = new Primes;
-    prime->nPrimes = 48;
     
-    Primes tprime;
-    tprime.nPrimes = 50;
     
-    tprime.prime = new Prime[5];
-    tprime.prime[0].prime = 5;
-    tprime.prime[0].power = 2 + 48;
-    tprime.prime[1].prime = 3;
-    tprime.prime[1].power = 9 + 48;
-    
+    int num = 0;
     // Prompt
 
     // Output    
-    prntPrm(&tprime);
-    cout << endl << endl;;
-    prime = factor(8);
+    cout << "Input an integer from 2 to 10000 to factor" << endl;
+    cin >> num;
+
+    cout <<  endl << endl;
+
+    prime = factor(num);
+  
     prntPrm(prime);
     
-    
-    delete tprime.prime;
+    delete[] prime;
+    cout << "Done";
     return 0;
 }
 
-Primes *factor(int num){
+Primes *factor(int inNum){
     Primes *primeNum = new Primes;
+    primeNum->prime->power = 48;
+    
     int count = 0;
+    int num = inNum;
+    primeNum->nPrimes = 48;
     
-   
-    for (int i = 2; i < 10; i++){
-        while (num % i == 0 && num >= 0){
-            cout << num << endl;
-
-                num /= i;
-                primeNum->nPrimes++;
+    for (int i = 2; (i) < 5001; i++){     
+        if (num % i == 0 && i != num){
+        primeNum->prime[count].power = 48;
+        primeNum->nPrimes++;
+            while (num % i == 0 && i != num){
                 primeNum->prime[count].prime = i;
-                primeNum->prime[count].power ++;
-
-        }
-        count++;
+                primeNum->prime[count].power ++;     
+                num = num / i;      
+            }
+            count++;
+        }                      
     }
-    
-    
-    
-    return primeNum;
-    
+
+    if (num > 1 && num != inNum && num == primeNum->prime[count - 1].prime){
+        num-= num;        
+        primeNum->prime[count - 1 ].power++;
+                
+   } 
+    if (num > 1 && num != inNum ){
+                primeNum->nPrimes++;
+                primeNum->prime[count].prime =num;
+                primeNum->prime[count].power = 49;          
+    }
+    return primeNum;  
 }
+
 void prntPrm(Primes *prime){
     int sum = 0;
     for (int i = 0; i < prime->nPrimes - 48 ; i++){
-        for (int j = 0; j < prime->prime[j].power ; j++){
+        for (int j = 0; j < prime->prime[j].power ; j++){  
             sum *= prime->prime[i].prime;
         }
     }
-    
     for (int i = 0; i < prime->nPrimes - 48 ; i++){
        cout << prime->prime[i].prime << "^" << prime->prime[i].power;
        if (i < prime->nPrimes - 48 - 1  )
            cout << "*";
     }
-    cout << " ";
+    cout << " "; 
 }
