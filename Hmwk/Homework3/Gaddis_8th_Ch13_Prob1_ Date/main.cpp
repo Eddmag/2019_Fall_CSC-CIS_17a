@@ -1,7 +1,7 @@
 
 /* 
  * File:   main.cpp
- * Author: Eddy
+ * Author: Edgar Magaña
  * Purpose:             1. Date
         Design a class called Date . The class should store a date in three integers: month , day ,
         and year . There should be member functions to print the date in the following forms:
