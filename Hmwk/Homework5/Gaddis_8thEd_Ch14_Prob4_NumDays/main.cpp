@@ -32,6 +32,7 @@
 
 // System Libraries
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 // User Libraries
@@ -44,15 +45,61 @@ using namespace std;
 class NumDays{
     private:
         int wHr = 0;
+        float days = 0.0;
     public:
-
+        NumDays(int i){
+            wHr = i;
+        }
+        NumDays operator + (NumDays& i){
+            NumDays j(0);
+            j.wHr = this->wHr + i.wHr;
+            return j;
+        }
+        NumDays operator - (NumDays& i){
+            NumDays j(0);
+            j.wHr = this->wHr - i.wHr;
+            return j;
+        }
+        NumDays operator -- (int i){
+           
+            this->wHr = this->wHr - 1;
+            return *this;
+        }
+        NumDays operator ++ (int i){
+           
+            this->wHr = this->wHr + 1;
+            return *this;
+        }
+        int getHours(){
+            return wHr;
+        }
+        float getDays(){
+            setDays();
+            return days;
+        }
+        void setDays(){   
+            days = static_cast<float>(wHr) / 8.0;
+        }
 };
 int main() {
     // Declare Variables
-
+    NumDays john(10);
+    NumDays jane(16);
+    NumDays dpmnt(0);
     // Prompt
 
     // Output    
+    
+    cout << "John worked " << john.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << john.getDays() << " days." << endl
+         << "Jane worked " << jane.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << jane.getDays() << " days." << endl;
+    
+    dpmnt = john + jane;
+    
+    cout << "Together John and Jane worked " << dpmnt.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << dpmnt.getDays() << " days." << endl;
+    
+    john--;
+    
+    cout << "If John worked one less hour he would have worked " << john.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << john.getDays() << " days." << endl;
     return 0;
 }
 
