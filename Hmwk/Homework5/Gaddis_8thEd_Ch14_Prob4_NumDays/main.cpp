@@ -83,8 +83,8 @@ class NumDays{
 };
 int main() {
     // Declare Variables
-    NumDays john(10);
-    NumDays jane(16);
+    NumDays john(41);
+    NumDays jane(39);
     NumDays dpmnt(0);
     // Prompt
 
@@ -99,7 +99,11 @@ int main() {
     
     john--;
     
-    cout << "If John worked one less hour he would have worked " << john.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << john.getDays() << " days." << endl;
+    cout << "If John worked one hour less he would have worked " << john.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << john.getDays() << " days." << endl;
+    
+    jane++;
+    
+    cout << "If Jane worked one hour more she would have worked " << john.getHours() << " hours, which is equivalent to " << fixed << setprecision(2) << john.getDays() << " days." << endl;
     return 0;
 }
 
