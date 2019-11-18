@@ -47,6 +47,9 @@ class NumDays{
         int wHr = 0;
         float days = 0.0;
     public:
+        NumDays(){
+            
+        }
         NumDays(int i){
             wHr = i;
         }
@@ -76,6 +79,9 @@ class NumDays{
         float getDays(){
             setDays();
             return days;
+        }
+        void setHours(int i){   
+            wHr = i;
         }
         void setDays(){   
             days = static_cast<float>(wHr) / 8.0;
