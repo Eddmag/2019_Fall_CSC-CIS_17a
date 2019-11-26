@@ -35,9 +35,20 @@ void Deck::displayDeck(){
         cout << cards[index[i]].getSuit() + 48;
         cout << " ";
         cout << cards[index[i]].getVal() + 48;
+        cout << " Int" << static_cast<int>(cards[index[i]].getVal());
         cout << endl;
     }
 
+}
+char Deck::getCardsDealt(){
+    return cDealt;
+}
+Card Deck::DealCard(){
+    cDealt++;
+    return cards[getIndex(cDealt - 1)];
+}
+void Deck::resetCardsDealt(){
+    cDealt = 0;
 }
 char Deck::getIndex(int i){
     return index[i];

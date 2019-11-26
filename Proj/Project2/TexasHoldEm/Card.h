@@ -18,10 +18,13 @@
 
 class Card{
     private:
-        char value;
-        char suit;
+        unsigned char value;
+        unsigned char suit;
+        bool face;
         
     public:
+        Card();
+        bool isUp();
         char getVal();
         char getSuit();
         void setVal(int i);

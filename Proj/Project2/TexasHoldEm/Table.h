@@ -21,19 +21,22 @@ class Table{
         unsigned char tabLen;
         unsigned char tabWid ;
         unsigned char** display;
+        Card* river;
+        
     public:
         Table();
         ~Table();
         
+        void DealTable();
         void shuffleDeck();
         void displayDeck();
         Player getPlayer(char i);
         char getPlayerID(char i);
         void startPlay();
-        void refreshDisplay();
-        void setCardDisp(char p, Card c1, Card c2);
+        void setDisplay();
+        void setPlayerDisplay(char p, Card c1, Card c2);
         void displayTable();
-        
+        void setFoeDisplay(Player a);
         
 };
 

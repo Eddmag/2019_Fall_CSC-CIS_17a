@@ -17,7 +17,8 @@ Table::Table(){
     tabWid = 80;
     tabLen = 25;
     display = new unsigned char*[tabWid];
-
+    river = new Card[5];
+    
     for (int i = 0; i < tabWid; ++i){
       display[i] = new unsigned char[tabLen];
     }
@@ -32,9 +33,10 @@ Table::~Table(){
 
     for (int i = 0; i < tabWid; ++i){
         delete [] display[i];
-
     } 
     delete [] display;
+    
+    delete [] river;
 }
 
 void Table::shuffleDeck(){
@@ -52,26 +54,103 @@ char Table::getPlayerID(char i){
 }
 void Table::startPlay(){
     //shuffleDeck();
-    playerList[0].setCrd1(deck.getCard(deck.getIndex(0)));
-    playerList[0].setCrd2(deck.getCard(deck.getIndex(1)));
+    DealTable();
 
 
 }
-void Table::refreshDisplay(){
+
+void Table::DealTable(){
+    
+    playerList[0].setCrd1(deck.DealCard());
+    playerList[1].setCrd1(deck.DealCard());
+    playerList[2].setCrd1(deck.DealCard());
+    playerList[3].setCrd1(deck.DealCard());
+    
+    playerList[0].setCrd2(deck.DealCard());
+    playerList[1].setCrd2(deck.DealCard());
+    playerList[2].setCrd2(deck.DealCard());
+    playerList[3].setCrd2(deck.DealCard());
+    
+    for (int i = 0; i < 5; i++){
+        river[i] = deck.DealCard();
+    }
+}
+void Table::setDisplay(){
     for (int i = 0; i < tabLen; i++){
-
         for (int j = 0; j < tabWid; j++){
-
             display[j][i] = ' ' ;
-
         }
+    }
+    setPlayerDisplay(playerList[0].getID(), playerList[0].getCrd1(), playerList[0].getCrd2());
+    setFoeDisplay(playerList[1]);
+    setFoeDisplay(playerList[2]);
+    setFoeDisplay(playerList[3]);
+}
+
+void Table::setFoeDisplay(Player a ){
+    int mul = 0;
+    if (a.getID() == 2 ){
+        mul = 30 ;
+    }
+    if (a.getID() == 3 ){
+        mul = 58 ; 
+    }
+    
+    // Card 1
+    for (int i = 1; i < 6; i++ ){
+        display[2+mul][i] = '|';
+    }
+    for (int i = 1; i < 6; i++ ){
+        display[8+mul][i] = '|';
+    }
+    for (int j = 3+mul; j < 8 + mul; j ++){
+            display[j][0] = '_';
 
     }
+    for (int j = 3+ mul; j < 8 + mul; j ++){
+            display[j][6] = '-';
 
-    setCardDisp(playerList[0].getID(), playerList[0].getCrd1(), playerList[0].getCrd2());
+        }
+    if(a.getCrd1().isUp()== false){
+        for (int i = 1; i < 6 ; i++ ){
+            for (int j = 3+ mul; j < 8 + mul; j++){
+                display[j][i] = '0';
+            }
+        }
+    }
+    if(a.getCrd1().isUp()== true){
+        for (int i = 1; i < 6 ; i++ ){
+            for (int j = 3+ mul; j < 8 + mul; j++){
+                display[j][i] = ' ';
+            }
+        }
+    }
+    //card 2
+    for (int i = 1; i < 6; i++ ){
+        display[11+mul][i] = '|';
+    }
+    for (int i = 1; i < 6; i++ ){
+        display[17+mul][i] = '|';
+    }
+    for (int j = 12+mul; j < 17 + mul; j ++){
+            display[j][0] = '_';
+    }
+    for (int j = 12+mul; j < 17 + mul; j ++){
+            display[j][6] = '-';
+        }
+    
+    if(a.getCrd2().isUp()== false){
+        for (int i = 1; i < 6; i++ ){
+            for (int j = 12 + mul; j < 17 + mul; j ++){
+                display[j][i] = '0';
 
+            }
+        }
+    }
+    
 }
-void Table::setCardDisp(char p, Card c1, Card c2){
+
+void Table::setPlayerDisplay(char p, Card c1, Card c2){
     char suit1= c1.getSuit();
     char suit2= c2.getSuit();
     // Card 1   
@@ -95,8 +174,8 @@ void Table::setCardDisp(char p, Card c1, Card c2){
 
         }
     }
-    display[40][22] = c1.getVal() +49;
-    display[44][18] = c1.getVal() +49;
+    display[40][22] = c1.getVal();
+    display[44][18] = c1.getVal();
 
     switch(suit1){
         case 0:
@@ -104,16 +183,16 @@ void Table::setCardDisp(char p, Card c1, Card c2){
             display[40][21] = 'S';
             break;
         case 1:
-            display[49][21] = 'H';
-            display[53][19] = 'H';
+            display[44][19] = 'H';
+            display[40][21] = 'H';
             break;
         case 2:
-            display[49][21] = 'C';
-            display[53][19] = 'C';
+            display[44][19] = 'C';
+            display[40][21] = 'C';
             break;
         case 3:
-            display[49][21] = 'D';
-            display[53][19] = 'D';
+            display[44][19] = 'D';
+            display[40][21] = 'D';
             break;
     }
 
@@ -141,8 +220,8 @@ void Table::setCardDisp(char p, Card c1, Card c2){
 
     }
     // set card values
-    display[49][22] = c2.getVal() + 49;
-    display[53][18] = c2.getVal() + 49;
+    display[49][22] = c2.getVal();
+    display[53][18] = c2.getVal();
 
     // set card suit
 
@@ -165,7 +244,6 @@ void Table::setCardDisp(char p, Card c1, Card c2){
             break;
     }
 
-
 }
 
 void Table::displayTable(){
@@ -186,6 +264,7 @@ void Table::displayTable(){
     }
 
     cout << " --------------------------------------------------------------------------------" << endl;
-    cout << playerList[0].getCrd1().getVal()+49 << endl;
-    cout << playerList[0].getCrd2().getVal()+49;
+    //cout << playerList[0].getCrd1().getVal() << endl;
+    //cout << playerList[0].getCrd2().getVal() << endl;
+    //cout << static_cast<int>(playerList[0].getCrd1().getVal()) << " " << static_cast<int>(playerList[0].getCrd2().getVal()); 
 }

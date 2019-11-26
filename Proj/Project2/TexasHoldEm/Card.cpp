@@ -13,6 +13,12 @@
 
 #include "Card.h"
 
+Card::Card(){
+    face = false;
+}
+bool Card::isUp(){
+    return face;
+}
 char Card::getVal(){
             return value;
 }
@@ -21,10 +27,10 @@ char Card::getSuit(){
 }
         
 void Card::setVal(int i){
-            i -= 48;
+            
             value = i;
 }
 void Card::setSuit(int i){
-            i -= 48;
+           
             suit = i;
 }

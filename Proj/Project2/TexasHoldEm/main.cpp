@@ -28,10 +28,8 @@ int main(int argc, char** argv) {
     table.shuffleDeck();
     table.displayDeck();
     
-    table.refreshDisplay();
-    table.displayTable();
     table.startPlay();
-    table.refreshDisplay();
+    table.setDisplay();
     table.displayTable();
    
     return 0;

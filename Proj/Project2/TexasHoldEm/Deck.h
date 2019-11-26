@@ -36,5 +36,8 @@ class Deck{
         void setIndex(int i, int j);
         void shuffle();
         Card getCard(int i);
+        void resetCardsDealt();
+        char getCardsDealt();
+        Card DealCard();
 };
 #endif /* DECK_H */

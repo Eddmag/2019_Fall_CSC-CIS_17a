@@ -20,16 +20,38 @@ Player::Player(){
     isOut = 0;
 }
 void Player::setID(int i){
-    playID = (i - 48);
+    playID = (i);
 }
 char Player::getID(){
     return playID;
 }
-void Player::setCrd1(Card i){
+void Player::setCrd1(Card i){ 
     card1 = i;
+    card1.setVal(card1.getVal()+49);
+    
+    if (static_cast<int>(card1.getVal()) == 58){
+            card1.setVal(84);
+        }else if (static_cast<int>(card1.getVal()) == 59){
+                card1.setVal(74);
+            }else if (static_cast<int>(card1.getVal()) == 60){
+                    card1.setVal(81);
+                }else if (static_cast<int>(card1.getVal()) == 61){
+                    card1.setVal(75);
+                    };
 }
 void Player::setCrd2(Card i){
-    card2= i;
+    card2 = i;
+    card2.setVal(card2.getVal()+49);
+    
+    if (static_cast<int>(card2.getVal()) == 58){
+            card2.setVal(84);
+        }else if (static_cast<int>(card2.getVal()) == 59){
+                card2.setVal(74);
+            }else if (static_cast<int>(card2.getVal()) == 60){
+                    card2.setVal(81);
+                }else if (static_cast<int>(card2.getVal()) == 61){
+                    card2.setVal(75);
+                    };
 }
 Card Player::getCrd1(){
     return card1;
