@@ -6,92 +6,15 @@
  * 
  */
 // system libraries
-#include <iostream>
-#include <iomanip>
-#include <ctime>
+
 using namespace std;
 
 // user libraries
+#include "Card.h"
+#include "Deck.h"
+
 
 // classes
-class Card{
-    private:
-        char value;
-        char suit;
-        
-    public:
-        char getVal(){
-            return value;
-        }
-        char getSuit(){
-            return suit;
-        }
-        
-        void setVal(int i){
-            i -= 48;
-            value = i;
-        }
-        void setSuit(int i){
-            i -= 48;
-            suit = i;
-        }
-};
-class Deck{
-    private:
-        Card* cards;
-        const char DECKSZ =52;
-        char* index;
-        char cDealt;
-        
-    public:
-        Deck(){
-            index = new char[DECKSZ];
-            cards = new Card[DECKSZ];
-            for (int i = 0; i < DECKSZ; i++){
-                
-                    cards[i].setSuit(i / 13);
-                    cards[i].setVal(i % 13);
-                    index[i] = i;
-            cDealt = 0;
-            }
-        }
-        ~Deck(){
-            delete [] cards;
-            cards = NULL;
-        }
-        void displayDeck(){
-                
-            for (int i = 0; i < DECKSZ; i++){
-                cout << "CARD " << i << " INDEX " << static_cast<int>(index[i]) << endl;
-                    cout << cards[index[i]].getSuit() + 48;
-                    cout << " ";
-                    cout << cards[index[i]].getVal() + 48;
-                    cout << endl;
-            }
-            
-        }
-        char getIndex(int i){
-            return index[i];
-        }
-        void setIndex(int i, int j){
-            index[i] =  j;
-        }
-        void shuffle(){
-            for (int i = 1 ; i <= 20 ; i++){
-                for (int j = 0; j < 20 ; j++){
-                    unsigned char randNum = rand() % DECKSZ;
-                    unsigned char temp = index[j];
-                    index[j] = index[randNum];
-                    index[randNum] = temp;
-        }
-    }
-        }
-        Card getCard(int i){
-            return cards[i];
-        }
-};
-
-
 class Player{
     private:
         int chips;
@@ -231,8 +154,8 @@ class Table{
                     
                 }
             }
-            display[40][22] = c1.getVal()+ 48;
-            display[44][18] = c1.getVal()+ 48;
+            display[40][22] = c1.getVal() +49;
+            display[44][18] = c1.getVal() +49;
             
             switch(suit1){
                 case 0:
@@ -277,8 +200,8 @@ class Table{
                 
             }
             // set card values
-            display[49][22] = c2.getVal() + 48;
-            display[53][18] = c2.getVal() + 48;
+            display[49][22] = c2.getVal() + 49;
+            display[53][18] = c2.getVal() + 49;
             
             // set card suit
             
