@@ -37,6 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Card.o \
 	${OBJECTDIR}/Deck.o \
+	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/Table.o \
 	${OBJECTDIR}/main.o
 
 
@@ -73,6 +75,16 @@ ${OBJECTDIR}/Deck.o: Deck.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Deck.o Deck.cpp
+
+${OBJECTDIR}/Player.o: Player.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+
+${OBJECTDIR}/Table.o: Table.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Table.o Table.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

@@ -6,6 +6,8 @@
                    projectFiles="true">
       <itemPath>Card.h</itemPath>
       <itemPath>Deck.h</itemPath>
+      <itemPath>Player.h</itemPath>
+      <itemPath>Table.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,6 +18,8 @@
                    projectFiles="true">
       <itemPath>Card.cpp</itemPath>
       <itemPath>Deck.cpp</itemPath>
+      <itemPath>Player.cpp</itemPath>
+      <itemPath>Table.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -48,6 +52,14 @@
       </item>
       <item path="Deck.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Table.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Table.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -78,6 +90,14 @@
       <item path="Deck.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Deck.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Table.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Table.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
