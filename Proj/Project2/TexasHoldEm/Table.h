@@ -34,8 +34,9 @@ class Table{
         char getPlayerID(char i);
         void startPlay();
         void setDisplay();
-        void setPlayerDisplay(char p, Card c1, Card c2);
         void displayTable();
+        void setRiverDisplay();
+        void setPlayerDisplay(char p, Card c1, Card c2);
         void setFoeDisplay(Player a);
         
 };

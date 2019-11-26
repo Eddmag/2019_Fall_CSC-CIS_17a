@@ -18,6 +18,8 @@ Player::Player(){
     chips = 1000;
     isFold = 0;
     isOut = 0;
+    token = 0;
+    
 }
 void Player::setID(int i){
     playID = (i);
@@ -70,4 +72,7 @@ void Player::setFold(bool i){
 }
 void Player::setIsOut(bool i){
     isOut = i;
+}
+bool Player::getIsOut(){
+    return isOut;
 }

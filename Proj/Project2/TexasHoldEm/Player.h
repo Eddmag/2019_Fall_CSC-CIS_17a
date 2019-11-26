@@ -22,6 +22,7 @@ class Player{
         Card card2;
         bool isFold;
         bool isOut;
+        char token;
         
     public:
         Player();
@@ -35,6 +36,7 @@ class Player{
         void getBet(int i);
         void setFold(bool i);
         void setIsOut(bool i);
+        bool getIsOut();
     
 };
 

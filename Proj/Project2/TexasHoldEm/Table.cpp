@@ -54,22 +54,40 @@ char Table::getPlayerID(char i){
 }
 void Table::startPlay(){
     //shuffleDeck();
+    playerList[0].setIsOut(1);
+    playerList[1].setIsOut(1);
+    playerList[2].setIsOut(1);
+    playerList[3].setIsOut(1);
     DealTable();
 
 
 }
 
 void Table::DealTable(){
-    
+    if (playerList[0].getIsOut() != 0){
     playerList[0].setCrd1(deck.DealCard());
+    }
+    if (playerList[1].getIsOut() != 0){
     playerList[1].setCrd1(deck.DealCard());
+    }
+    if (playerList[2].getIsOut() != 0){
     playerList[2].setCrd1(deck.DealCard());
+    }
+    if (playerList[3].getIsOut() != 0){
     playerList[3].setCrd1(deck.DealCard());
-    
+    }
+    if (playerList[0].getIsOut() != 0){
     playerList[0].setCrd2(deck.DealCard());
+    }
+    if (playerList[1].getIsOut() != 0){
     playerList[1].setCrd2(deck.DealCard());
+    }
+    if (playerList[2].getIsOut() != 0){
     playerList[2].setCrd2(deck.DealCard());
+    }
+    if (playerList[3].getIsOut() != 0){
     playerList[3].setCrd2(deck.DealCard());
+    }
     
     for (int i = 0; i < 5; i++){
         river[i] = deck.DealCard();
@@ -82,11 +100,52 @@ void Table::setDisplay(){
         }
     }
     setPlayerDisplay(playerList[0].getID(), playerList[0].getCrd1(), playerList[0].getCrd2());
-    setFoeDisplay(playerList[1]);
+    if (playerList[1].getIsOut() != 0){
+        setFoeDisplay(playerList[1]);
+    }
+    if (playerList[2].getIsOut() != 0){
     setFoeDisplay(playerList[2]);
+    }
+    if (playerList[3].getIsOut() != 0){
     setFoeDisplay(playerList[3]);
+    }
+    setRiverDisplay();
 }
+void Table::setRiverDisplay(){
+    for(int k = 0; k < 5;k++){
+        int mul = 12 * k;
+        
+        for (int i = 10; i < 15; i++ ){
+            display[12+mul][i] = '|';
+        }
+        for (int i = 10; i < 15; i++ ){
+            display[18+mul][i] = '|';
+        }
+        for (int j = 13 + mul; j < 18 + mul; j ++){
+                display[j][9] = '_';
 
+        }
+        for (int j = 13 + mul; j < 18 + mul ; j ++){
+                display[j][15] = '-';
+
+            }
+        if(river[k].isUp()== false){
+            for (int i = 10 ; i < 15 ; i++ ){
+                for (int j = 13 + mul; j < 18+ mul; j++){
+                    display[j][i] = '0';
+                }
+            }
+        }
+        if(river[k].isUp()== true){
+            for (int i = 10 ; i < 15 ; i++ ){
+                for (int j = 13 + mul; j < 18+ mul; j++){
+                    display[j][i] = ' ';
+                }
+            }
+        }
+        display[13 + mul][14] = river[k].getVal()+ 49;
+    }
+}
 void Table::setFoeDisplay(Player a ){
     int mul = 0;
     if (a.getID() == 2 ){
