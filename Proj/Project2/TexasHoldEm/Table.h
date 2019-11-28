@@ -13,7 +13,9 @@
 
 #ifndef TABLE_H
 #define TABLE_H
+
 #include "Player.h"
+#include <cstring>
 class Table{
     private:
         Deck deck;
@@ -22,7 +24,13 @@ class Table{
         unsigned char tabWid ;
         unsigned char** display;
         Card* river;
-        int turn;
+        int turnCt;
+        char bB[10] = {'B','i','g',' ','B','l','i','n','d' ,'\0'};
+        char sB[12] = {'S','m','a','l','l',' ','B','l','i','n','d','\0'};
+        char dl[7] = {'D','e','a','l','e','r','\0'};
+        int pot, minBet, order;
+        
+        
         
     public:
         Table();
@@ -42,6 +50,9 @@ class Table{
         void checkRank();
         void setGeneralInfo();
         void intAppend(char, char, int);
+        void charAppend(char col , char row, char c[]);
+        void switchTkn();
+        void setTokens();
         
 };
 

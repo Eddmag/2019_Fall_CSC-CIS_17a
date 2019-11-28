@@ -67,6 +67,34 @@ void Player::getWins(int i){
 void Player::getBet(int i){
     chips -= i;
 }
+int Player::getBet(){
+    int tChips = chips;
+
+    switch(token){
+        case 1:
+            if (chips >= 100){
+            chips -= 100;
+            return 100;
+            } else if (chips > 0){
+                chips = 0;
+                return tChips;
+
+            }
+            break;
+        case 2:
+            if (chips >= 200){
+            chips -= 200;
+            return 200;
+            }else if (chips > 0){
+                chips = 0;
+                return tChips;
+            }
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
 void Player::setFold(bool i){
     isFold = i;
 }
@@ -75,4 +103,19 @@ void Player::setIsOut(bool i){
 }
 bool Player::getIsOut(){
     return isOut;
+}
+void Player::setTkn(char c){
+    token = c;
+};
+char Player::getTkn(){
+    return token;
+};
+void Player::rotateTkn(){
+    token++;
+    if (token > 3){
+        token = 0;
+    }
+}
+int Player::getChips(){
+    return chips;
 }

@@ -14,21 +14,31 @@
 #include "Table.h"
 
 Table::Table(){
-    turn = 1;
+    turnCt = 1;
     tabWid = 80;
     tabLen = 25;
+    pot = 0;
+    minBet = 200;
+    
+    // Dyanamic Arrays
     display = new unsigned char*[tabWid];
     river = new Card[5];
-    
+        
     for (int i = 0; i < tabWid; ++i){
       display[i] = new unsigned char[tabLen];
     }
-
     playerList = new Player[4];
     for (int i = 0; i < 4; i++){
         playerList[i].setID(i);
     }
+    
+    // Set Player turn Order
+    order = rand() % 4;
+    
+
+    
 }
+
 Table::~Table(){
     delete[] playerList;
 
@@ -38,6 +48,57 @@ Table::~Table(){
     delete [] display;
     
     delete [] river;
+}
+
+void Table::startPlay(){
+    int input;
+    bool winner = false;
+    //shuffleDeck();
+    playerList[0].setIsOut(0);
+    playerList[1].setIsOut(1);
+    playerList[2].setIsOut(0);
+    playerList[3].setIsOut(0);
+    
+    while(winner == false){
+    //Pre flop  
+    shuffleDeck();
+    setTokens();   
+    turnCt ++;
+    DealTable();   
+    
+    // Get Bets
+    for (int i = 0; i < 4; i++){
+        pot += playerList[i].getBet();
+    }
+    
+    // Flop
+    
+    displayTable();
+    
+    cin >> input;
+    }
+    
+
+
+}
+void Table::setTokens(){
+    int players= 3;
+    for (int i = 0; i <= players;i++){
+        if(playerList[order].getIsOut() == false){
+            playerList[order].setTkn(i);
+            order++;
+            
+        }else if(playerList[order].getIsOut() == true){
+            i--;
+            players--;
+            order++;
+            
+        }
+        if (order > 3){
+            order = 0;
+        }
+           
+    }
 }
 
 void Table::shuffleDeck(){
@@ -53,48 +114,30 @@ Player Table::getPlayer(char i){
 char Table::getPlayerID(char i){
     return playerList[i].getID();
 }
-void Table::startPlay(){
-    bool winner = false;
-    //shuffleDeck();
-    playerList[0].setIsOut(1);
-    playerList[1].setIsOut(1);
-    playerList[2].setIsOut(1);
-    playerList[3].setIsOut(1);
-    
-    while(winner == false){
-    turn ++;   
-    DealTable();    
-    displayTable();
-    winner = true;
-    }
-    
-
-
-}
 
 void Table::DealTable(){
-    if (playerList[0].getIsOut() != 0){
+    if (playerList[0].getIsOut() == 0){
     playerList[0].setCrd1(deck.DealCard());
     }
-    if (playerList[1].getIsOut() != 0){
+    if (playerList[1].getIsOut() == 0){
     playerList[1].setCrd1(deck.DealCard());
     }
-    if (playerList[2].getIsOut() != 0){
+    if (playerList[2].getIsOut() == 0){
     playerList[2].setCrd1(deck.DealCard());
     }
-    if (playerList[3].getIsOut() != 0){
+    if (playerList[3].getIsOut() == 0){
     playerList[3].setCrd1(deck.DealCard());
     }
-    if (playerList[0].getIsOut() != 0){
+    if (playerList[0].getIsOut() == 0){
     playerList[0].setCrd2(deck.DealCard());
     }
-    if (playerList[1].getIsOut() != 0){
+    if (playerList[1].getIsOut() == 0){
     playerList[1].setCrd2(deck.DealCard());
     }
-    if (playerList[2].getIsOut() != 0){
+    if (playerList[2].getIsOut() == 0){
     playerList[2].setCrd2(deck.DealCard());
     }
-    if (playerList[3].getIsOut() != 0){
+    if (playerList[3].getIsOut() == 0){
     playerList[3].setCrd2(deck.DealCard());
     }
     
@@ -110,13 +153,13 @@ void Table::setDisplay(){
     }
     setGeneralInfo();
     setPlayerDisplay(playerList[0].getID(), playerList[0].getCrd1(), playerList[0].getCrd2());
-    if (playerList[1].getIsOut() != 0){
+    if (playerList[1].getIsOut() == 0){
         setFoeDisplay(playerList[1]);
     }
-    if (playerList[2].getIsOut() != 0){
+    if (playerList[2].getIsOut() == 0){
     setFoeDisplay(playerList[2]);
     }
-    if (playerList[3].getIsOut() != 0){
+    if (playerList[3].getIsOut() == 0){
     setFoeDisplay(playerList[3]);
     }
     setRiverDisplay();
@@ -212,10 +255,25 @@ void Table::setFoeDisplay(Player a ){
         for (int i = 1; i < 6; i++ ){
             for (int j = 12 + mul; j < 17 + mul; j ++){
                 display[j][i] = '0';
-
             }
         }
     }
+    //Display Token
+    switch(a.getTkn()){
+        case 0:
+            charAppend(5+mul , 8, dl);
+            break;
+        case 1:
+            charAppend(5+mul , 8, sB);
+            break;
+        case 2:
+            charAppend(5+mul , 8, bB);
+            break;
+        case 3:
+            break;
+    }
+    display[7+ mul][7] = '$';
+    intAppend(8 + mul ,7 , a.getChips());
     
 }
 
@@ -265,7 +323,6 @@ void Table::setPlayerDisplay(char p, Card c1, Card c2){
             break;
     }
 
-
     // Card 2
     for (int i = 18; i < 23; i++ ){
         display[48][i] = '|';
@@ -275,18 +332,14 @@ void Table::setPlayerDisplay(char p, Card c1, Card c2){
     }
     for (int j = 49; j < 54; j ++){
             display[j][17] = '_';
-
     }
     for (int j = 49; j < 54; j ++){
             display[j][23] = '-';
-
         }
     for (int i = 18; i < 23; i++ ){
         for (int j = 49; j < 54; j ++){
             display[j][i] = ' ';
-
         }
-
     }
     // set card values
     display[49][22] = c2.getVal();
@@ -312,7 +365,25 @@ void Table::setPlayerDisplay(char p, Card c1, Card c2){
             display[53][19] = 'D';
             break;
     }
-
+    
+    //Player info
+    display[57][18] = '$';
+    intAppend(58,18, playerList[0].getChips());
+    
+    
+    switch(playerList[0].getTkn()){
+        case 0:
+            charAppend(65 , 18, dl);
+            break;
+        case 1:
+            charAppend(65 , 18, sB);
+            break;
+        case 2:
+            charAppend(65 , 18, bB);
+            break;
+        case 3:
+            break;
+    }
 }
 
 void Table::displayTable(){
@@ -325,19 +396,16 @@ void Table::displayTable(){
     for (int i = 0; i < tabLen; i++){
         cout << "|";
         for (int j = 0; j < tabWid; j++){
-
             cout << display[j][i] ;
-
         }
-
         cout << "|" << endl;
     }
-
     cout << " --------------------------------------------------------------------------------" << endl;
     //cout << playerList[0].getCrd1().getVal() << endl;
     //cout << playerList[0].getCrd2().getVal() << endl;
     //cout << static_cast<int>(playerList[0].getCrd1().getVal()) << " " << static_cast<int>(playerList[0].getCrd2().getVal()); 
 }
+
 void Table::checkRank(){
     int rSize = 0;
     for (int i = 0; i < 5; i++){
@@ -345,70 +413,50 @@ void Table::checkRank(){
             rSize ++;
         }
     }
-    Card tCards[rSize + 2];
-    
-    
+    Card tCards[rSize + 2];   
 }
+
 void Table::setGeneralInfo(){
-    display[1][18] = 'T';
-    display[2][18] = 'u';
-    display[3][18] = 'r';
-    display[4][18] = 'n';
-    display[6][18] = turn;
-    
-    intAppend(6, 18, 9302);
+    display[1][18] = '$';
+    intAppend(2, 18, pot );
+
 }
 void Table::intAppend(char col , char row, int num){
-    char arr[5] = {0};
+    char arr[4] = {0};
     int numSize = 0;
-    int div;
-    for(int i = 0 ; i < 5; i++){
-        char pv = 0;
-        
-        if (num > 999){
-            if(numSize == 0){
-                numSize = 4;
-            }
-            div = 1000;
-        }else if (num > 99){
-            if(numSize == 0){
-                numSize = 3;
-                i++;
-            }
-            div = 100;
-        }else if (num > 9){
-            if(numSize == 0){
-                numSize = 2;
-                i++;
-            }
-            div = 10;
-        }else if (num > 0){
-            if(numSize == 0){
-                numSize = 1;
-                i++;
-            }
-            div = 1;
-        }
-        
-        while (num >= div){
-            if (num/div > 0){
-                num -= div;
-                pv++;
-            }
-            
-        }
-        if (num == 0&& numSize  <= i  ){
-            pv = -16;
-        }
-        
-        arr[i] = pv;
-        
-        cout << i << " = " << static_cast<char>(pv + 48) << endl;
+    int pv[4] = {0};
+    
+    while (num >= 1000){
+        pv[0]++;
+        num -=1000;
     }
-    for(int i = 0; i < 5 ;i++){
-        display[col+i][row] = arr[i] + 48;
-        
+    while (num >= 100){
+        pv[1]++;
+        num-= 100;
+    }
+    while (num >= 10){
+        pv[2]++;
+        num-= 10;
+    }
+    while (num > 0){
+        pv[3]++;
+        num-= 1;
+    } 
+    for (int i = 0; i < 4; i++){
+        arr[i] = pv[i] + 48;      
     }
     
-   
+    for(int i = 0; i < 4 ;i++){
+        display[col+i][row] = arr[i] ;       
+    } 
+}
+void Table::charAppend(char col , char row, char c[]){
+    for(int i = 0; i < strlen(c); i++){
+        display[col+i][row] = c[i];
+    }   
+}
+void Table::switchTkn(){
+    for (int i = 0; i < 4;i++){
+        playerList[i].rotateTkn();
+    }
 }

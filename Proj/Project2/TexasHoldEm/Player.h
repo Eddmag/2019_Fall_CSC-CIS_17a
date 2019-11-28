@@ -30,10 +30,15 @@ class Player{
         char getID();
         void setCrd1(Card i);
         void setCrd2(Card i);
+        void setTkn(char);
+        void rotateTkn();
+        char getTkn();
         Card getCrd1();
         Card getCrd2();
         void getWins(int i);
         void getBet(int i);
+        int getBet();
+        int getChips();
         void setFold(bool i);
         void setIsOut(bool i);
         bool getIsOut();

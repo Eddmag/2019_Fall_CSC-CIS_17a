@@ -58,6 +58,7 @@ void Deck::setIndex(int i, int j){
     index[i] =  j;
 }
 void Deck::shuffle(){
+    resetCardsDealt();
     for (int i = 1 ; i <= 20 ; i++){
         for (int j = 0; j < 20 ; j++){
             unsigned char randNum = rand() % DeckSz;
