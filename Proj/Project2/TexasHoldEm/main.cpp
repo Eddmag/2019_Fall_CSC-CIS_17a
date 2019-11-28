@@ -29,8 +29,8 @@ int main(int argc, char** argv) {
     table.displayDeck();
     
     table.startPlay();
-    table.setDisplay();
-    table.displayTable();
+    
+    
    
     return 0;
 }

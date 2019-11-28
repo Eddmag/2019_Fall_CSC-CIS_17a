@@ -14,6 +14,7 @@
 #include "Table.h"
 
 Table::Table(){
+    turn = 1;
     tabWid = 80;
     tabLen = 25;
     display = new unsigned char*[tabWid];
@@ -53,12 +54,20 @@ char Table::getPlayerID(char i){
     return playerList[i].getID();
 }
 void Table::startPlay(){
+    bool winner = false;
     //shuffleDeck();
     playerList[0].setIsOut(1);
     playerList[1].setIsOut(1);
     playerList[2].setIsOut(1);
     playerList[3].setIsOut(1);
-    DealTable();
+    
+    while(winner == false){
+    turn ++;   
+    DealTable();    
+    displayTable();
+    winner = true;
+    }
+    
 
 
 }
@@ -99,6 +108,7 @@ void Table::setDisplay(){
             display[j][i] = ' ' ;
         }
     }
+    setGeneralInfo();
     setPlayerDisplay(playerList[0].getID(), playerList[0].getCrd1(), playerList[0].getCrd2());
     if (playerList[1].getIsOut() != 0){
         setFoeDisplay(playerList[1]);
@@ -306,6 +316,7 @@ void Table::setPlayerDisplay(char p, Card c1, Card c2){
 }
 
 void Table::displayTable(){
+    setDisplay();
     cout << " --------------------------------------------------------------------------------" << endl;
     cout << '|' << "                        Edgar's Texas Hold'Em                                   |" << endl;
     cout << " --------------------------------------------------------------------------------" << endl;
@@ -326,4 +337,78 @@ void Table::displayTable(){
     //cout << playerList[0].getCrd1().getVal() << endl;
     //cout << playerList[0].getCrd2().getVal() << endl;
     //cout << static_cast<int>(playerList[0].getCrd1().getVal()) << " " << static_cast<int>(playerList[0].getCrd2().getVal()); 
+}
+void Table::checkRank(){
+    int rSize = 0;
+    for (int i = 0; i < 5; i++){
+        if (river[i].isUp() == true){
+            rSize ++;
+        }
+    }
+    Card tCards[rSize + 2];
+    
+    
+}
+void Table::setGeneralInfo(){
+    display[1][18] = 'T';
+    display[2][18] = 'u';
+    display[3][18] = 'r';
+    display[4][18] = 'n';
+    display[6][18] = turn;
+    
+    intAppend(6, 18, 9302);
+}
+void Table::intAppend(char col , char row, int num){
+    char arr[5] = {0};
+    int numSize = 0;
+    int div;
+    for(int i = 0 ; i < 5; i++){
+        char pv = 0;
+        
+        if (num > 999){
+            if(numSize == 0){
+                numSize = 4;
+            }
+            div = 1000;
+        }else if (num > 99){
+            if(numSize == 0){
+                numSize = 3;
+                i++;
+            }
+            div = 100;
+        }else if (num > 9){
+            if(numSize == 0){
+                numSize = 2;
+                i++;
+            }
+            div = 10;
+        }else if (num > 0){
+            if(numSize == 0){
+                numSize = 1;
+                i++;
+            }
+            div = 1;
+        }
+        
+        while (num >= div){
+            if (num/div > 0){
+                num -= div;
+                pv++;
+            }
+            
+        }
+        if (num == 0&& numSize  <= i  ){
+            pv = -16;
+        }
+        
+        arr[i] = pv;
+        
+        cout << i << " = " << static_cast<char>(pv + 48) << endl;
+    }
+    for(int i = 0; i < 5 ;i++){
+        display[col+i][row] = arr[i] + 48;
+        
+    }
+    
+   
 }

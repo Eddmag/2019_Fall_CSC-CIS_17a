@@ -22,6 +22,7 @@ class Table{
         unsigned char tabWid ;
         unsigned char** display;
         Card* river;
+        int turn;
         
     public:
         Table();
@@ -38,6 +39,9 @@ class Table{
         void setRiverDisplay();
         void setPlayerDisplay(char p, Card c1, Card c2);
         void setFoeDisplay(Player a);
+        void checkRank();
+        void setGeneralInfo();
+        void intAppend(char, char, int);
         
 };
 

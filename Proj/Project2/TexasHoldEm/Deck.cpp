@@ -15,9 +15,10 @@
 
 
 Deck::Deck(){
-    index = new char[DECKSZ];
-    cards = new Card[DECKSZ];
-    for (int i = 0; i < DECKSZ; i++){
+    DeckSz = 52;
+    index = new char[DeckSz];
+    cards = new Card[DeckSz];
+    for (int i = 0; i < DeckSz; i++){
             cards[i].setSuit(i / 13);
             cards[i].setVal(i % 13);
             index[i] = i;
@@ -30,7 +31,7 @@ Deck::~Deck(){
 }
 void Deck::displayDeck(){
 
-    for (int i = 0; i < DECKSZ; i++){
+    for (int i = 0; i < DeckSz; i++){
         cout << "CARD " << i << " INDEX " << static_cast<int>(index[i]) << endl;
         cout << cards[index[i]].getSuit() + 48;
         cout << " ";
@@ -59,7 +60,7 @@ void Deck::setIndex(int i, int j){
 void Deck::shuffle(){
     for (int i = 1 ; i <= 20 ; i++){
         for (int j = 0; j < 20 ; j++){
-            unsigned char randNum = rand() % DECKSZ;
+            unsigned char randNum = rand() % DeckSz;
             unsigned char temp = index[j];
             index[j] = index[randNum];
             index[randNum] = temp;

@@ -18,13 +18,14 @@
 #include <iostream>
 #include <iomanip>
 #include <ctime>
+#include <stdlib.h>
 
 using namespace std;
 
 class Deck{
     private:
         Card* cards;
-        const char DECKSZ =52;
+        char DeckSz;
         char* index;
         char cDealt;
         
